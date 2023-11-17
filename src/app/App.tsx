@@ -51,9 +51,7 @@ function App() {
           <LoginPage />
         </Route>
         <Route path="/">
-          
             <HomePage />
-          
         </Route>
       </Switch>
 
