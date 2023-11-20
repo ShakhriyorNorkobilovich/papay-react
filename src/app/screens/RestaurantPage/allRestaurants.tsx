@@ -5,19 +5,25 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { AspectRatio, Card, CardOverflow, CssVarsProvider, IconButton, Link, Typography } from '@mui/joy';
-import { Favorite, LocationOnRounded } from '@mui/icons-material';
+import { CssVarsProvider } from '@mui/joy/styles';
+import Card  from '@mui/joy/Card';
+import CardOverflow from '@mui/joy/CardOverflow';
+import AspectRatio from '@mui/joy/AspectRatio';
+import IconButton from '@mui/joy/IconButton';
+import Favorite from '@mui/icons-material/Favorite';
+import Typography from '@mui/joy/Typography';
+import Link from '@mui/joy/Link';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import CallIcon from '@mui/icons-material/Call';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
-
 
 const order_list = Array.from (Array(8).keys());
 console.log(order_list);
 
 export function AllRestaurants(){
-    return <div className='all_restaurant'>
+    return (
+    <div className='all_restaurant'>
         <Container>
             <Stack flexDirection={"column"} alignItems={"center"}>
                 <Box className={'fil_search_box'}>
@@ -51,15 +57,15 @@ export function AllRestaurants(){
                         {order_list.map(ele => {
                             return (
                                 <Card
-                            variant = "outlined"
-                            sx={{
-                                minHeight:410,
-                                minWidth: 290,
-                                mx: "17px",
-                                my: "20px",
-                            }}
-                        >
-                            <CardOverflow>
+                                    variant = "outlined"
+                                    sx={{
+                                        minHeight:410,
+                                        minWidth: 290,
+                                        mx: "17px",
+                                        my: "20px",
+                                    }}
+                                >
+                                <CardOverflow>
                                     <AspectRatio ratio="1">
                                         <img src={"/restaurant/burak.jpeg"} alt="" />
                                     </AspectRatio>
@@ -82,16 +88,15 @@ export function AllRestaurants(){
                                         }}
                                     >
                                         <Favorite
-                                        // @ts-ignore 
-                                        style={{
-                                            color: "white"
-                                        }}/>
+                                            // @ts-ignore 
+                                            style={{color: "white"}}
+                                        />
                                     </IconButton>
-                            </CardOverflow>
-                            <Typography level="h2" sx={{ fontSize: "md", mt:2 }}>
-                                    Texas De Brasil Restaurant
-                            </Typography>
-                            <Typography level="title-sm" sx={{ mt: 0.5, mb: 2 }}>
+                                </CardOverflow>
+                                <Typography level="h2" sx={{ fontSize: "md", mt:2 }}>
+                                        Texas De Brasil Restaurant
+                                </Typography>
+                                <Typography level="title-sm" sx={{ mt: 0.5, mb: 2 }}>
                                     <Link
                                         href = ""
                                         startDecorator = {<LocationOnRoundedIcon/>}
@@ -99,8 +104,8 @@ export function AllRestaurants(){
                                     >
                                         Tashkent, Yunusabad 4-1
                                     </Link>
-                            </Typography>
-                            <Typography level="title-sm" sx={{ mt: 0.5, mb: 2 }}>
+                                </Typography>
+                                <Typography level="title-sm" sx={{ mt: 0.5, mb: 2 }}>
                                     <Link
                                         href = ""
                                         startDecorator = {<CallIcon/>}
@@ -108,8 +113,8 @@ export function AllRestaurants(){
                                     >
                                         +99890 1199891
                                     </Link>
-                            </Typography>
-                            <CardOverflow
+                                </Typography>
+                                <CardOverflow
                                     variant='soft'
                                     sx={{
                                         display: "flex",
@@ -122,42 +127,41 @@ export function AllRestaurants(){
                                         bgcolor: "background.level1",
                                         alignItems: "center", // Vertically center the content
                                     }}
+                                >
+                                    <Typography
+                                        level="title-sm"
+                                        sx={{
+                                            fontWeight: "md",
+                                            color: "text.secondary",
+                                            alignItems: "center",
+                                            display: "flex",
+                                        }}
                                     >
-                                        <Typography
-                                            level="title-sm"
-                                            sx={{
-                                                fontWeight: "md",
-                                                color: "text.secondary",
-                                                alignItems: "center",
-                                                display: "flex",
-                                            }}
-                                        >
-                                            1000
-                                            <VisibilityIcon sx={{fontSize: 20, marginLeft: "5px" }}/>
-                                        </Typography>
-                                        <Box sx={{width: 2, bgcolor: "divider", height: 20}}/>
-                                        <Typography
-                                            level="title-sm"
-                                            sx={{
-                                                fontWeight: "md",
-                                                color: "text.secondary",
-                                                alignItems: "center",
-                                                display: "flex",
-                                            }}
-                                        >
-                                            <div>50</div>
-                                            <Favorite sx={{fontSize: 20, marginLeft: "5px"}}/>
-                                        </Typography>
-                            </CardOverflow>
-                        </Card>
-                            );
-                        })}
+                                        1000
+                                        <VisibilityIcon sx={{fontSize: 20, marginLeft: "5px" }}/>
+                                    </Typography>
+                                    <Box sx={{width: 2, bgcolor: "divider", height: 20}}/>
+                                    <Typography
+                                        level="title-sm"
+                                        sx={{
+                                            fontWeight: "md",
+                                            color: "text.secondary",                                                alignItems: "center",
+                                             display: "flex",
+                                        }}
+                                    >
+                                        <div>50</div>
+                                        <Favorite sx={{fontSize: 20, marginLeft: "5px"}}/>
+                                    </Typography>
+                                </CardOverflow>
+                            </Card>
+                        );
+                    })}
 
-                    </CssVarsProvider>
-                </Stack>
+                </CssVarsProvider>
+            </Stack>
 
-                <Stack className={'bottom_box'}>
-                    <img className={'line_img'} src={"restaurant/line_two.svg"} />
+            <Stack className={'bottom_box'}>
+                    <img className={'line_img'} src={"restaurant/line.svg"} />
                     <Pagination
                         count={3}
                         page={1}
@@ -172,9 +176,10 @@ export function AllRestaurants(){
                             />
                         )}
                     />
-                    <img className={'line_img_two'} src={"restaurant/line_two.svg"}  />
+                    <img className={'line_img_two'} src={"restaurant/line_2.svg"}  />
                 </Stack>
             </Stack>
         </Container>
     </div>
+    );
 }

@@ -52,12 +52,12 @@ export function Events() {
 
                     <Box className= {'prev_next_frame'}>
                         <img 
-                            src={"/icons/arrow_right.svg"}
+                            src={"/icons/arrow_7.svg"}
                             className={'swiper-button-prev'} 
                         />
                         <div className={'dot_frame_pagination swiper_pagination'}></div>
                         <img 
-                            src={"/icons/arrow_right.svg"}
+                            src={"/icons/arrow_7.svg"}
                             className={'swiper-button-next'}
                             style={{transform: "rotate(-180deg)" }} 
                         />
