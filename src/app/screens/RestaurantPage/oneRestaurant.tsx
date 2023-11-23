@@ -167,11 +167,11 @@ export function OneRestaurant(){
                                                 className={'like_view_btn'}
                                                 style={{right: "36px"}}
                                             >
-                                                <Badge badgeContent={100} color='primary'>
-                                                    <Checkbox
-                                                        icon={
-                                                            <RemoveRedEyeIcon style={{color: "white"}}/>
-                                                        }
+                                                <Badge badgeContent={55} color='primary'>
+                                                <Checkbox
+                                                    icon={<RemoveRedEyeIcon style={{ color: "white" }} />}
+                                                    // @ts-ignore
+                                                    checked={false}
                                                     />
                                                 </Badge>
                                             </Button>
@@ -249,10 +249,10 @@ export function OneRestaurant(){
                         backgroundImage: `url('/restaurant/texasDeBrazil.jpeg')`
                     }}
                 >
-                    <div className={'about_left_desc'}>
+                    {/* <div className={'about_left_desc'}>
                         <span>Burak</span>
                         <p>Eng mazali oshxona</p>
-                    </div>
+                    </div> */}
                 </Box>
                 <Box className={'about_right'}>
                     {Array.from(Array(3).keys()).map((ele, index) => {
