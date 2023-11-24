@@ -21,3 +21,14 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.order_page{
+  width: 100%;
+  height: auto;
+  background: #0b0e11;
+
+  display: flex;
+}
+
+
+
