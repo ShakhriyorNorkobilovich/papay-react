@@ -11,7 +11,7 @@ export function NavbarHome(props: any) {
 
         useEffect (() => {
             setCount(count + 1);
-        }, [value])
+        }, [value]);
 
 
     return (
