@@ -9,15 +9,53 @@ import { Events } from './events';
 import { Recommendations } from './recommendations';
 import "../../../css/home.css";
 
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import { setTopRestaurants } from "../../screens/HomePage/slice";
+import { retrieveTopRestaurants } from "../../screens/HomePage/selector";
+import { Restaurant } from '../../../types/user';
+
+/** REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+    setTopRestaurants: (data: Restaurant[]) => dispach(setTopRestaurants(data)),
+  });
+
+/** REDUX SELECTOR */
+
+const topRestaurantsRetriever = createSelector(
+    retrieveTopRestaurants, 
+    (topRestaurants) => ({
+        topRestaurants
+})
+);
+
+
+
+
+
 export function HomePage(){
 
+     /** INITIALIZATIONS */
+  const { setTopRestaurants } = actionDispatch(useDispatch());
+  const { topRestaurants } = useSelector(topRestaurantsRetriever);
+  
+
+  console.log("topRestaurants::", topRestaurants);
+  
+
+
+    // selector: store => data
 
     useEffect(() => {
-        console.log("componentDidMount => Backenddan malumot ob kelamiz Data fetch");
+        // backend data request => data
 
-        return () => {
-            console.log("componentWillUnmount => Backenddan malumot ob kelamiz Data fetch");
-        }
+
+
+        setTopRestaurants([]);
+
+        // slice data = >store
     }, []);
 
 
