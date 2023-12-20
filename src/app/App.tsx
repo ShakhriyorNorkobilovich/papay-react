@@ -52,7 +52,11 @@ function App() {
           <LoginPage />
         </Route>
         <Route path="/">
-            <HomePage />
+
+          <Car />
+
+
+            {/* <HomePage /> */}
         </Route>
       </Switch>
 
