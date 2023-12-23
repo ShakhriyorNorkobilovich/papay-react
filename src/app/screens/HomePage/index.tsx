@@ -13,7 +13,7 @@ import "../../../css/home.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { setTopRestaurants } from "../../screens/HomePage/slice";
+import { setBestRestaurants, setTopRestaurants } from "../../screens/HomePage/slice";
 import { retrieveTopRestaurants } from "../../screens/HomePage/selector";
 import { Restaurant } from '../../../types/user';
 import RestaurantApiService from '../../apiServices/restaurantApiService';
@@ -21,39 +21,33 @@ import RestaurantApiService from '../../apiServices/restaurantApiService';
 /** REDUX SLICE */
 const actionDispatch = (dispach: Dispatch) => ({
     setTopRestaurants: (data: Restaurant[]) => dispach(setTopRestaurants(data)),
+    setBestRestaurants: (data: Restaurant[]) => dispach(setBestRestaurants(data)),
   });
-
-/** REDUX SELECTOR */
-
-const topRestaurantsRetriever = createSelector(
-    retrieveTopRestaurants, 
-    (topRestaurants) => ({
-        topRestaurants
-})
-);
-
-
-
 
 
 export function HomePage(){
 
      /** INITIALIZATIONS */
-  const { setTopRestaurants } = actionDispatch(useDispatch());
+  const { setTopRestaurants, setBestRestaurants } = actionDispatch(useDispatch());
 
-    // selector: store => data
-    useEffect(() => {
-        // backend data request => data
 
-        const restaurantService = new RestaurantApiService();
-        restaurantService.getTopRestaurants().then(data => {
-            setTopRestaurants(data);
-        }).catch(err => console.log(err));
+  useEffect(() => {
+    const restaurantService = new RestaurantApiService();
+    restaurantService
+      .getTopRestaurants()
+      .then((data) => {
+        setTopRestaurants(data);
+      })
+      .catch((err) => console.log(err));
 
-        
-
-        // slice data = >store
-    }, []);
+    restaurantService
+      .getRestaurants({ page: 1, limit: 4, order: "mb_point" })
+      .then((data) => {
+        console.log("best", data);
+        setBestRestaurants(data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
 
 
