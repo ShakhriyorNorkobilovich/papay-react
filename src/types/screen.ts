@@ -2,9 +2,14 @@ import { BoArticle } from "./boArticle";
 import { Product } from "./product";
 import { Restaurant } from "./user";
 
+
+//** REACT APP STATE */
 export interface AppRootState {
     homePage: HomePageState;
+    restaurantPage: RestaurantPageState;    
 }
+
+//** HOMEPAGE */
 
 export interface HomePageState {
     topRestaurants: Restaurant[];
@@ -13,4 +18,12 @@ export interface HomePageState {
     bestBoArticles: BoArticle[];
     trendBoArticles: BoArticle[];
     newsBoArticles: BoArticle[];
+}
+
+export interface RestaurantPageState {
+    targetRestaurants: Restaurant[];
+    randomRestaurants: Restaurant[];
+    chosenRestaurant: Restaurant | null;
+    targetProducts: Product[];
+    chosenProduct: Product | null;
 }

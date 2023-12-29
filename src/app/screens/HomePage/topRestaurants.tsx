@@ -25,6 +25,7 @@ import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrieveTopRestaurants } from "../../screens/HomePage/selector";
 import { Restaurant } from '../../../types/user';
+
 import { serverApi } from '../../../lib/config';
 import { verifiedMemberData } from "../../apiServices/verify";
 
