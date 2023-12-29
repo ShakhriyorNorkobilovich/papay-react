@@ -1,15 +1,24 @@
-import { Box, Container,} from '@mui/material';
-import { Stack } from '@mui/system';
-import React from 'react';
-import Card from '@mui/joy/Card';
-import CardCover from '@mui/joy/CardCover';
-import CardContent from '@mui/joy/CardContent';
-import Typography from '@mui/joy/Typography';
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
-import { CssVarsProvider } from '@mui/joy/styles';
-import {CardOverflow, IconButton} from '@mui/joy';
-import { Favorite } from '@mui/icons-material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Box, Container } from "@mui/material";
+import { Stack } from "@mui/system";
+import React, { useRef } from "react";
+import Card from "@mui/joy/Card";
+import CardCover from "@mui/joy/CardCover";
+import CardContent from "@mui/joy/CardContent";
+import Typography from "@mui/joy/Typography";
+import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
+import { CssVarsProvider } from "@mui/joy/styles";
+import { CardOverflow, IconButton } from "@mui/joy";
+import { Favorite } from "@mui/icons-material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+import assert from "assert";
+import { Definer } from "../../../lib/Definer";
+import MemberApiService from "../../apiServices/memberApiService";
+import { useHistory } from "react-router-dom";
 
 // REDUX
 import { useSelector } from "react-redux";
@@ -17,6 +26,7 @@ import { createSelector } from "reselect";
 import { retrieveTopRestaurants } from "../../screens/HomePage/selector";
 import { Restaurant } from '../../../types/user';
 import { serverApi } from '../../../lib/config';
+import { verifiedMemberData } from "../../apiServices/verify";
 
 /** REDUX SELECTOR */
 
@@ -30,9 +40,46 @@ const topRestaurantsRetriever = createSelector(
 
 export function TopRestaurants() {
 
-
+ /** INITIALIZATIONS */
+    const history = useHistory();
     const { topRestaurants } = useSelector(topRestaurantsRetriever);
     console.log("topRestaurants::", topRestaurants);
+    const refs: any = useRef([]);
+
+
+
+      /** HANDLERS */
+
+      const chosenRestaurantHandler = (id: string) => {
+        history.push(`/restaurant/${id}`);
+      };
+
+
+      const targetLikeTop = async (e: any, id: string) => {
+        try {
+          assert.ok(verifiedMemberData, Definer.auth_err1);
+    
+          const memberService = new MemberApiService(),
+            like_result: any = await memberService.memberLikeTarget({
+              like_ref_id: id,
+              group_type: "member",
+            });
+          assert.ok(like_result, Definer.general_err1);
+    
+          if (like_result.like_status > 0) {
+            e.target.style.fill = "red";
+            refs.current[like_result.like_ref_id].innerHTML++;
+          } else {
+            e.target.style.fill = "white";
+            refs.current[like_result.like_ref_id].innerHTML--;
+          }
+    
+          await sweetTopSmallSuccessAlert("success", 700, false);
+        } catch (err: any) {
+          console.log("targetLikeTop, ERROR:", err);
+          sweetErrorHandling(err).then();
+        }
+      };
 
 
     return (
@@ -49,7 +96,7 @@ export function TopRestaurants() {
                   const image_path = `${serverApi}/${ele.mb_image}`;
                   return (
                     <CssVarsProvider key={ele._id}>
-                      <Card
+                      <Card  onClick={() => chosenRestaurantHandler(ele._id)}
                         sx={{
                           minHeight: 430,
                           minWidth: 325,
@@ -109,7 +156,7 @@ export function TopRestaurants() {
                               e.stopPropagation();
                             }}
                           >
-                            <Favorite
+                            <Favorite onClick={(e) => targetLikeTop(e, ele._id)}
                               style={{
                                 fill:
                                   ele?.me_liked && ele?.me_liked[0]?.my_favorite
@@ -142,7 +189,7 @@ export function TopRestaurants() {
                               display: "flex",
                             }}
                           >
-                            <div>
+                            <div ref={(element) => (refs.current[ele._id] = element)}>
                               {ele.mb_likes}
                             </div>
                             <Favorite sx={{ fontSize: 20, marginLeft: "5px" }} />

@@ -16,7 +16,6 @@ import { NavbarHome } from './components/header';
 import { NavbarRestaurant } from './components/header/restaurant';
 import { NavbarOthers } from './components/header/others';
 import { Footer } from './components/footer';
-import Car from './screens/testCar';
 import AuthenticationModal from './components/auth';
 import { Member } from '../types/user';
 import { serverApi } from '../lib/config';
