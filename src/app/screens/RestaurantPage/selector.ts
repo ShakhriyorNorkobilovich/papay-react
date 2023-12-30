@@ -22,3 +22,5 @@ export const retrieveChosenProduct = createSelector(
   selectRestaurantPage,
   (RestaurantPage) => RestaurantPage.chosenProduct
 );
+
+

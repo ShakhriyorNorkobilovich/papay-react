@@ -63,8 +63,6 @@ class RestaurantApiService {
       throw err;
     }
   }
-
- 
 }
 
 export default RestaurantApiService;
