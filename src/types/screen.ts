@@ -1,4 +1,5 @@
 import { BoArticle } from "./boArticle";
+import { Order } from "./order";
 import { Product } from "./product";
 import { Restaurant } from "./user";
 
@@ -6,7 +7,8 @@ import { Restaurant } from "./user";
 //** REACT APP STATE */
 export interface AppRootState {
     homePage: HomePageState;
-    restaurantPage: RestaurantPageState;    
+    restaurantPage: RestaurantPageState; 
+    ordersPage: OrdersPageState;
 }
 
 //** HOMEPAGE */
@@ -20,10 +22,20 @@ export interface HomePageState {
     newsBoArticles: BoArticle[];
 }
 
+//** RESTAURANT PAGE */
+
 export interface RestaurantPageState {
     targetRestaurants: Restaurant[];
     randomRestaurants: Restaurant[];
     chosenRestaurant: Restaurant | null;
     targetProducts: Product[];
     chosenProduct: Product | null;
+}
+
+//** ORDERS PAGE */
+
+export interface OrdersPageState {
+  pausedOrders: Order[],
+  processOrders: Order[],
+  finishedOrders: Order[],
 }

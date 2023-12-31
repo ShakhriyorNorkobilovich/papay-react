@@ -1,29 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import{ Container, Stack, Box, Tabs } from "@mui/material";
 import"../../../css/orders.css";
-
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-
-
-
-
-
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Order } from "../../../types/order";
 
 import PausedOrders from "../../components/orders/pausedOrders";
 import ProcessOrders from "../../components/orders/processOrders";
 import FinishedOrders from "../../components/orders/finishedOrders";
 
+// REDUX
+import { useDispatch } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
 
 
-export function OrdersPage() {
+// REDUX SLICE
+const actionDispatch = (dispatch: Dispatch) => ({
+    setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
+    setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
+    setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
+  });
+
+
+
+  export function OrdersPage() {
+    /**INITIALIZATIONS**/
     const [value, setValue] = useState("1");
-
+    const { setPausedOrders, setProcessOrders, setFinishedOrders } =
+      actionDispatch(useDispatch());
+    useEffect(() => {
+      // todo
+    }, []);
+    /**HANDLERS**/
     const handleChange = (event: any, newValue: string) => {
-        setValue(newValue);
+      setValue(newValue);
     };
 
     return(
