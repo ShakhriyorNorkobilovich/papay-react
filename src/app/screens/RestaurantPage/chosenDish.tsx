@@ -70,7 +70,7 @@ const chosen_list = Array.from(Array(3).keys());
 
 
 
-export function ChosenDish(){
+export function ChosenDish(props: any){
 
     /** INITIALIZATIONS */
   let { dish_id } = useParams<{ dish_id: string }>();
@@ -226,9 +226,9 @@ export function ChosenDish(){
             <div className={"button_box"}>
               <Button
                 variant="contained"
-                // onClick={() => {
-                //   props.onAdd(chosenProduct);
-                // }}
+                onClick={() => {
+                  props.onAdd(chosenProduct);
+                }}
               >
                 Savatga qo'shish
               </Button>

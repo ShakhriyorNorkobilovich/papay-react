@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Basket from './basket';
 
 export function NavbarRestaurant(props: any) {
     return (<div className='format_restaurant home_navbar'>
@@ -40,7 +41,7 @@ export function NavbarRestaurant(props: any) {
                             Oshxona
                         </NavLink>
                     </Box>
-                    {props.verifiedMemberdata ? (
+                    {props.verifiedMemberData ? (
                         <Box className= "hover-line" onClick={props.setPath}>
                         <NavLink to='/orders' activeClassName="underline">
                             Buyurtma
@@ -53,7 +54,7 @@ export function NavbarRestaurant(props: any) {
                         </NavLink>
                     </Box>
 
-                    {props.verifiedMemberdata ? (
+                    {props.verifiedMemberData ? (
                         <Box className="hover-line" onClick={props.setPath}>
                             <NavLink to="/member-page" activeClassName="underline">
                             Sahifam
@@ -68,22 +69,16 @@ export function NavbarRestaurant(props: any) {
                     </Box>
 
 
-                    <Box className= "hover-line">
-                        <IconButton 
-                        aria-label='cart' 
-                        id='basic-button'
-                        aria-controls={undefined}
-                        aria-haspopup="true"
-                        aria-expanded={undefined}
-                        // onClick={handleClick}
-                        >
-                            <Badge badgeContent={3} color='secondary'>
-                                <img src="/icons/shopping-cart.svg" alt="" />
-                            </Badge>
-                        </IconButton>
-                    </Box>
+                    <Basket
+                        onAdd={props.onAdd}
+                        cartItems={props.cartItems}
+                        onRemove={props.onRemove}
+                        onDelete={props.onDelete}
+                        onDeleteAll={props.onDeleteAll}
+                        setOrderRebuild={props.setOrderRebuild}
+                     />
 
-                    {!props.verifiedMemberdata ? (
+                    {!props.verifiedMemberData ? (
                         <Box>
                             <Button
                             variant="contained"
@@ -96,7 +91,7 @@ export function NavbarRestaurant(props: any) {
                         ) : (
                         <img
                             style={{ width: "48px", height: "48px", borderRadius: "24px" }}
-                            src={props.verifiedMemberdata.mb_image}
+                            src={props.verifiedMemberData.mb_image}
                             onClick={props.handleLogOutClick}
                         />
                     )}  

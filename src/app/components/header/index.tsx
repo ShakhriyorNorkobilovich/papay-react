@@ -2,6 +2,7 @@ import { Logout } from '@mui/icons-material';
 import { Badge, Box, Button, Container, IconButton, ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import Basket from './basket';
 
 
 export function NavbarHome(props: any) {
@@ -36,7 +37,7 @@ export function NavbarHome(props: any) {
                         </NavLink>
                     </Box>
 
-                    {props.verifiedMemberdata ? (
+                    {props.verifiedMemberData ? (
                         <Box className= "hover-line" onClick={props.setPath}>
                         <NavLink to='/orders' activeClassName="underline">
                             Buyurtma
@@ -50,7 +51,7 @@ export function NavbarHome(props: any) {
                         </NavLink>
                     </Box>
 
-                    {props.verifiedMemberdata ? (
+                    {props.verifiedMemberData ? (
                         <Box className="hover-line" onClick={props.setPath}>
                             <NavLink to="/member-page" activeClassName="underline">
                             Sahifam
@@ -65,22 +66,16 @@ export function NavbarHome(props: any) {
                     </Box>
 
 
-                    <Box className= "hover-line">
-                        <IconButton 
-                        aria-label='cart' 
-                        id='basic-button'
-                        aria-controls={undefined}
-                        aria-haspopup="true"
-                        aria-expanded={undefined}
-                        // onClick={handleClick}
-                        >
-                            <Badge badgeContent={3} color='secondary'>
-                                <img src="/icons/shopping-cart.svg" alt="" />
-                            </Badge>
-                        </IconButton>
-                    </Box>
+                    <Basket
+                        onAdd={props.onAdd}
+                        cartItems={props.cartItems}
+                        onRemove={props.onRemove}
+                        onDelete={props.onDelete}
+                        onDeleteAll={props.onDeleteAll}
+                        setOrderRebuild={props.setOrderRebuild}
+                    />
 
-                    {!props.verifiedMemberdata ? (
+                    {!props.verifiedMemberData ? (
                         <Box>
                             <Button
                             variant="contained"
@@ -93,7 +88,7 @@ export function NavbarHome(props: any) {
                         ) : (
                         <img
                             style={{ width: "48px", height: "48px", borderRadius: "24px" }}
-                            src={props.verifiedMemberdata.mb_image}
+                            src={props.verifiedMemberData.mb_image}
                             onClick={props.handleLogOutClick}
                         />
                     )}                    
@@ -157,7 +152,7 @@ export function NavbarHome(props: any) {
                         {} soat xizmatingizdamiz.
                     </Box>
                     <Box sx={{ mt: "90px" }}>
-                        {!props.verifiedMemberdata ? (
+                        {!props.verifiedMemberData ? (
                             <Button
                             variant="contained"
                             style={{
