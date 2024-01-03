@@ -3,6 +3,7 @@ import HomePageReducer from './screens/HomePage/slice';
 import reduxLogger from "redux-logger";
 import RestauntPageReducer from './screens/RestaurantPage/slice';
 import OrdersPageReducer from './screens/OrdersPage/slice';
+import CommunityPageReducer from './screens/CommunityPage/slice';
 
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     homePage: HomePageReducer,
     restaurantPage: RestauntPageReducer,
     ordersPage: OrdersPageReducer,
+    communityPage: CommunityPageReducer,
   },
 });
 
