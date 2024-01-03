@@ -46,7 +46,7 @@ export default function Basket(props: any) {
       await order.createOrder(cartItems);
       onDeleteAll();
       handleClose();
-      setOrderRebuild(new Date());
+      props.setOrderRebuild(new Date());
       history.push("/orders");
     } catch (err) {
       console.log(err);

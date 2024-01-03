@@ -219,7 +219,10 @@ function App() {
           <CommunityPage />
         </Route>
         <Route path="/orders">
-          <OrdersPage />
+          <OrdersPage 
+          orderRebuild = {orderRebuild} 
+          setOrderRebuild = {setOrderRebuild}
+          verifiedMemberData = {verifiedMemberData}/>
         </Route>
         <Route path="/member-page">
           <MemberPage />
