@@ -15,17 +15,71 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import TViewer from "../../components/tuiEditor/TViewer";
 
 
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import {
+  retrieveChosenMember,
+  retrieveChosenMemberBoArticles,
+  retrieveChosenSingleBoArticle,
+} from "./selector";
+import {
+  setChosenMember,
+  setChosenMemberBoArticles,
+  setChosenSingleBoArticle,
+} from "./slice";
+import { Member } from "../../../types/user";
+import { BoArticle } from "../../../types/boArticle";
+// REDUX SLICE
+const actionDispatch = (dispatch: Dispatch) => ({
+  setChosenMember: (data: Member) => dispatch(setChosenMember(data)),
+  setChosenMemberBoArticles: (data: BoArticle[]) =>
+    dispatch(setChosenMemberBoArticles(data)),
+  setChosenSingleBoArticle: (data: BoArticle) =>
+    dispatch(setChosenSingleBoArticle(data)),
+});
+// REDUX SELECTOR
+const chosenMemberRetriever = createSelector(
+  retrieveChosenMember,
+  (chosenMember) => ({
+    chosenMember,
+  })
+);
+const chosenSingleBoArticleRetriever = createSelector(
+  retrieveChosenSingleBoArticle,
+  (chosenSingleBoArticle) => ({
+    chosenSingleBoArticle,
+  })
+);
+const chosenMemberBoArticleRetriever = createSelector(
+  retrieveChosenMemberBoArticles,
+  (chosenMemberBoArticles) => ({
+    chosenMemberBoArticles,
+  })
+);
+
+
 
 
 export function VisitOtherPage(props: any) {
     /** INITIALIZATIONS **/
-    const [value, setValue] = useState("1");
-  
-  
-    /** HANDLERS **/
-    const handleChange = (event: any, newValue: string) => {
-      setValue(newValue);
-    };
+    const [value, setValue] = useState("4");
+
+  const {
+    setChosenMember,
+    setChosenMemberBoArticles,
+    setChosenSingleBoArticle,
+  } = actionDispatch(useDispatch());
+  const { chosenMember } = useSelector(chosenMemberRetriever);
+  const { chosenMemberBoArticles } = useSelector(
+    chosenMemberBoArticleRetriever
+  );
+  const { chosenSingleBoArticle } = useSelector(chosenSingleBoArticleRetriever);
+  /** HANDLERS **/
+  const handlerChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
 
   return (
     <div className={"my_page"}>
@@ -110,7 +164,7 @@ export function VisitOtherPage(props: any) {
                   sx={{ mt: "10px" }}
                 >
                   <TabList
-                    onChange={handleChange}
+                    // onChange={handleChange}
                     aria-label="lab API tabs example"
                   >
                     {true? (
@@ -146,7 +200,7 @@ export function VisitOtherPage(props: any) {
 
               <Box className={"my_page_menu"}>
                 <TabList
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   aria-label="Vertical tabs example"
                 >
                   <Tab

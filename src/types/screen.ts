@@ -1,7 +1,8 @@
 import { BoArticle } from "./boArticle";
+import { Follower, Following } from "./follow";
 import { Order } from "./order";
 import { Product } from "./product";
-import { Restaurant } from "./user";
+import { Member, Restaurant } from "./user";
 
 
 //** REACT APP STATE */
@@ -10,6 +11,7 @@ export interface AppRootState {
     restaurantPage: RestaurantPageState; 
     ordersPage: OrdersPageState;
     communityPage: CommunityPageState;
+    memberPage: MemberPageState;
 }
 
 //** HOMEPAGE */
@@ -45,4 +47,13 @@ export interface OrdersPageState {
 /*COMMUNITY PAGE*/
 export interface CommunityPageState {
     targetBoArticles: BoArticle[];
+  }
+
+  /*MEMBER PAGE*/
+export interface MemberPageState {
+    chosenMember: Member | null;
+    chosenMemberBoArticles: BoArticle[];
+    chosenSingleBoArticle: BoArticle | null;
+    memberFollowers: Follower[];
+    memberFollowings: Following[];
   }
