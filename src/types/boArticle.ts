@@ -17,3 +17,13 @@ export interface BoArticle{
     member_data: Member;
     me_liked: Meliked[]     //Me Liked
 }
+
+export interface SearchArticlesObj{
+
+    page: number;
+    limit: number;
+    bo_id: string;
+    order?: number | null;
+
+
+}
