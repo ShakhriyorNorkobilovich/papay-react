@@ -19,7 +19,7 @@ export interface Restaurant {
     mb_follow_cnt: number;
     mb_subscriber_cnt: number;
     createdAt?: Date;
-    me_liked: Meliked[]                 //Me Liked
+    me_liked: Meliked[]                 
 }
 
 
@@ -41,7 +41,7 @@ export interface Member {
     mb_follow_cnt: number;
     mb_subscriber_cnt: number;
     createdAt: Date;
-    me_liked: Meliked[];                 //Me Liked
-    me_followed: MeFollowed[]               //Me Followed
+    me_liked: Meliked[];                 
+    me_followed: MeFollowed[]              
 }
 
