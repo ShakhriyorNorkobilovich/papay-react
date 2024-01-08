@@ -5,14 +5,46 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import Checkbox from "@mui/material/Checkbox";
 import moment from "moment";
+import { BoArticle } from "../../../types/boArticle";
+import { serverApi } from "../../../lib/config";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+import assert from "assert";
+import { Definer } from "../../../lib/Definer";
+import MemberApiService from "../../apiServices/memberApiService";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 
 export function TargetArticles(props: any) {
 
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
+  const { setArticlesRebuild } = props;
+  /*HANDLERS*/
+  const targetLikeHandler = async (e: any) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      const memberService = new MemberApiService();
+      const like_result = await memberService.memberLikeTarget({
+        like_ref_id: e.target.id,
+        group_type: "community",
+      });
+      assert.ok(like_result, Definer.general_err1);
+      await sweetTopSmallSuccessAlert("success", 700, false);
+      setArticlesRebuild(new Date());
+    } catch (err: any) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  };
+
   return (
     <Stack>
-      {props.targetBoArticles?.map((article: any, index: string) => {
-        const art_image_url = "/community/default_article.svg";
+      {props.targetBoArticles?.map((article: BoArticle) => {
+        const art_image_url = article?.art_image
+        ? `${serverApi}/${article.art_image}` 
+        : "/community/default_article.svg";
         return (
           <Link
             className={"all_article_box"}
@@ -30,16 +62,16 @@ export function TargetArticles(props: any) {
                   width={"35px"}
                   style={{ borderRadius: "50%", backgroundSize: "cover" }}
                 />
-                <span className={"all_article_author_user"}>martin</span>
+                <span className={"all_article_author_user"}>{article?.member_data.mb_nick}</span>
               </Box>
               <Box
                 display={"flex"}
                 flexDirection={"column"}
                 sx={{ mt: "15px" }}
               >
-                <span className={"all_article_title"}>evaluation</span>
+                <span className={"all_article_title"}>{article?.bo_id}</span>
                 <p className={"all_article_desc"}>
-                    Texas De Brazil zor restaurant
+                    {article?.art_subject}
                 </p>
               </Box>
               <Box>
@@ -57,20 +89,25 @@ export function TargetArticles(props: any) {
                       alignItems: "center",
                     }}
                   >
-                    <div>23-10-17 15:51</div>
+                    <span>{moment(article.createdAt).format("YY-MM-DD HH:MM")}</span>
                     <Checkbox
-                        icon={<FavoriteBorder style={{color: "white"}}/>}
-                        id={`${index}`}
-                        checkedIcon={<Favorite style={{color: "red"}}/>}
-                        // @ts-ignore
-                        checked={true}
-                    />
+                    sx = {{ml: "40px"}}
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                    id={article?._id}
+                    onClick={targetLikeHandler}
+                    checked={
+                      article?.me_liked && article.me_liked[0]?.my_favorite
+                        ? true
+                        : false
+                    }
+                  />
                     <span style={{ marginRight: "18px" }}>
-                      100
+                      {article?.art_likes}
                     </span>
                     <RemoveRedEyeIcon />
                     <span style={{ marginLeft: "18px" }}>
-                      50
+                      {article?.art_views}
                     </span>
                   </Box>
                 </Box>
