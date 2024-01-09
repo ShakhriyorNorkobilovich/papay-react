@@ -24,3 +24,10 @@ export interface Follower {
     updateAt: Date;
     follow_mb_data: Member;
   }
+
+  export interface FollowSearchObj {
+    page: number;
+    limit: number;
+    mb_id: string;
+  }
+
