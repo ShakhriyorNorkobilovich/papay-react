@@ -16,15 +16,18 @@ import { Definer } from "../../../lib/Definer";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { retrieveMemberFollowers } from "./selector";
+import { Dispatch } from "@reduxjs/toolkit";
 import { setMemberFollowers } from "./slice";
-// REDUX SLICE
-const actionDispatch = (dispatch: Dispatch) => ({
-  setMemberFollowers: (data: Follower[]) => dispatch(setMemberFollowers(data)),
+import { retrieveMemberFollowers } from "./selector";
+import { useHistory } from "react-router-dom";
+import { verifiedMemberData } from "../../apiServices/verify";
+
+/** REDUX SLICE */
+const actionDispatch = (dispach: Dispatch) => ({
+  setMemberFollowers: (data: Follower[]) => dispach(setMemberFollowers(data)),
 });
-// REDUX SELECTOR
+/** REDUX SELECTOR */
 const memberFollowersRetriever = createSelector(
   retrieveMemberFollowers,
   (memberFollowers) => ({
@@ -38,6 +41,7 @@ const memberFollowersRetriever = createSelector(
 export function MemberFollowers(props: any) {
 
   /**INSTALIZATIONS**/
+  const history = useHistory();
   const { mb_id, followeRebuild, setFollowRebuild } = props;
   const { setMemberFollowers } = actionDispatch(useDispatch());
   const { memberFollowers } = useSelector(memberFollowersRetriever);
@@ -74,6 +78,12 @@ export function MemberFollowers(props: any) {
     followersSearchObj.page = value;
     setFollowersSearchObj({ ...followersSearchObj });
   };
+
+
+  const visitMemberHandler = (mb_id: string) => {
+    history.push(`/member-page/other?mb_id=${mb_id}`);
+    document.location.reload();
+  };
     
   return (
     <Stack>
@@ -88,6 +98,7 @@ export function MemberFollowers(props: any) {
               style={{ cursor: "pointer" }}
               src={image_url}
               sx={{ width: 89, height: 89 }}
+              onClick={() => visitMemberHandler(follower?.subscriber_id)}
             />
             <div
               style={{
@@ -98,10 +109,19 @@ export function MemberFollowers(props: any) {
                 height: "85%",
               }}
             >
-              <span className={"username_text"}>
-              {follower?.subscriber_mb_data.mb_type}
+              <span 
+                  className="username_text"
+                  >
+                    {follower?.subscriber_mb_data?.mb_type}
+
               </span>
-              <span className={"name_text"} > {follower?.subscriber_mb_data.mb_nick} </span>
+              <span 
+              style={{ cursor: "pointer" }}
+              className="name_text"
+              onClick={() => visitMemberHandler(follower?.subscriber_id)}
+              >
+                {follower?.subscriber_mb_data?.mb_nick} 
+              </span>
             </div>
             {props.actions_enabled &&
               (follower?.me_followed && follower.me_followed[0]?.my_following?  (

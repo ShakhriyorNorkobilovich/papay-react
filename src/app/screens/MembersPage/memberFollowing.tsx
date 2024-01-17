@@ -43,6 +43,7 @@ export function MemberFollowing(props: any) {
 
 
   /**INSTALIZATIONS**/
+  const history = useHistory();
   const { mb_id, followeRebuild, setFollowRebuild } = props;
   const { setMemberFollowings } = actionDispatch(useDispatch());
   const { memberFollowings } = useSelector(memberFollowingsRetriever);
@@ -78,6 +79,12 @@ export function MemberFollowing(props: any) {
     setFollowingsSearchObj({ ...followingsSearchObj });
   };
 
+
+  const visitMemberHandler = (mb_id: string) => {
+    history.push(`/member-page/other?mb_id=${mb_id}`);
+    document.location.reload();
+  };
+
   
   return (
     <Stack>
@@ -88,9 +95,11 @@ export function MemberFollowing(props: any) {
         return (
           <Box className={"follow_box"}>
             <Avatar
+              style={{ cursor: "pointer" }}
               alt={""}
               src={image_url}
               sx={{ width: 89, height: 89 }}
+              onClick={() => visitMemberHandler(following?.follow_id)}
             />
             <div
               style={{
@@ -104,7 +113,10 @@ export function MemberFollowing(props: any) {
               <span className={"username_text"}>
                 {following?.follow_mb_data?.mb_type}
               </span>
-              <span className={"name_text"}>
+              <span 
+              style={{ cursor: "pointer" }}
+              className={"name_text"}
+              onClick={() => visitMemberHandler(following?.follow_id)}>
               {following?.follow_mb_data?.mb_nick}
               </span>
             </div>
