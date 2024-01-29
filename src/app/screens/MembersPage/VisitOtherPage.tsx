@@ -374,8 +374,12 @@ export function VisitOtherPage(props: any) {
 
               <Box className={"my_page_menu"}>
                 <TabList
+                  orientation="vertical"
+                  variant="scrollable"
+                  // value={value}
                   onChange={handleChange}
                   aria-label="Vertical tabs example"
+                  sx={{ borderRight: 1, borderColor: "divider", width: "95%" }}
                 >
                   <Tab
                     style={{ flexDirection: "column" }}
