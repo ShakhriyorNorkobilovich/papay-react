@@ -9,6 +9,7 @@ import { Product } from "../../../types/product";
 import { serverApi } from "../../../lib/config";
 import { sweetErrorHandling, sweetFailureProvider } from "../../../lib/sweetAlert";
 import OrderApiService from "../../apiServices/orderApiService";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 
 // REDUX SELECTOR
@@ -30,7 +31,7 @@ export default function PausedOrders(props: any) {
     try {
       const order_id = e.target.value;
       const data = { order_id: order_id, order_status: "DELETED" };
-      if (!localStorage.getItem("member_data")) {
+      if (!verifiedMemberData) {
         sweetFailureProvider("Please login first", true);
       }
       let confirmation = window.confirm(
@@ -50,7 +51,7 @@ export default function PausedOrders(props: any) {
     try {
       const order_id = e.target.value;
       const data = { order_id: order_id, order_status: "PROCESS" };
-      if (!localStorage.getItem("member_data")) {
+      if (!verifiedMemberData) {
         sweetFailureProvider("Please login first", true);
       }
       let confirmation = window.confirm("Buyurtmani to'lashni tasdiqlaysizmi?");

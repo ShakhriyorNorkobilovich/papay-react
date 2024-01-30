@@ -10,6 +10,7 @@ import { Order } from "../../../types/order";
 import { serverApi } from "../../../lib/config";
 import { sweetErrorHandling, sweetFailureProvider } from "../../../lib/sweetAlert";
 import OrderApiService from "../../apiServices/orderApiService";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 
 // REDUX SELECTOR
@@ -33,7 +34,7 @@ export default function ProcessOrders(props: any) {
     try {
       const order_id = e.target.value;
       const data = { order_id: order_id, order_status: "FINISHED" };
-      if (!localStorage.getItem("member_data")) {
+      if (!verifiedMemberData) {
         sweetFailureProvider("Please login first", true);
       }
       let confirmation = window.confirm(

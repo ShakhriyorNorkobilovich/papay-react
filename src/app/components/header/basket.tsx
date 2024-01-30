@@ -41,7 +41,7 @@ export default function Basket(props: any) {
 
   const processOrderHandler = async () => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberData, Definer.auth_err1);
       const order = new OrderApiService();
       await order.createOrder(cartItems);
       onDeleteAll();

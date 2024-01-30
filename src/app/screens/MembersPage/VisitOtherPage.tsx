@@ -47,6 +47,7 @@ import MemberApiService from "../../apiServices/memberApiService";
 import CommunityApiService from "../../apiServices/communityApiService";
 import { sweetErrorHandling, sweetTopSmallSuccessAlert } from "../../../lib/sweetAlert";
 import FollowApiService from "../../apiServices/followApiService";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -83,7 +84,7 @@ export function VisitOtherPage(props: any) {
     
     const [articleRebuild, setArticleRebuild] = useState<Date>(new Date());
     const [followeRebuild, setFollowRebuild] = useState<Date>(new Date());
-    const { verifiedMemberData, chosen_mb_id, chosen_art_id } = props;
+    const { chosen_mb_id, chosen_art_id } = props;
     const history = useHistory();
 
 

@@ -42,6 +42,7 @@ import { BoArticle, SearchMemberArticlesObj } from "../../../types/boArticle";
 import { sweetErrorHandling, sweetFailureProvider } from "../../../lib/sweetAlert";
 import CommunityApiService from "../../apiServices/communityApiService";
 import MemberApiService from "../../apiServices/memberApiService";
+import { verifiedMemberData } from "../../apiServices/verify";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setChosenMember: (data: Member) => dispatch(setChosenMember(data)),
@@ -75,7 +76,6 @@ const chosenMemberBoArticleRetriever = createSelector(
 
 export function VisitMyPage(props: any) {
   /** INITIALIZATIONS **/
-  const {verifiedMemberData} = props;
 
   const {
     setChosenMember,
@@ -95,7 +95,7 @@ export function VisitMyPage(props: any) {
 
   
     useEffect(() => {
-      if (!localStorage.getItem("member_data")) {
+      if (!verifiedMemberData) {
         sweetFailureProvider("Please login first", true, true);
       }
   
@@ -193,7 +193,7 @@ export function VisitMyPage(props: any) {
                       actions_enabled={true}
                       followeRebuild = {followeRebuild}
                       setFollowRebuild = {setFollowRebuild}
-                      mb_id={props.verifiedMemberData?._id}/>
+                      mb_id={verifiedMemberData?._id}/>
                   </Box>
                 </TabPanel>
 
@@ -204,7 +204,7 @@ export function VisitMyPage(props: any) {
                       actions_enabled={true} 
                       followeRebuild = {followeRebuild}
                       setFollowRebuild = {setFollowRebuild}
-                      mb_id={props.verifiedMemberData?._id}/>
+                      mb_id={verifiedMemberData?._id}/>
                   </Box>
                 </TabPanel>
 
@@ -245,7 +245,7 @@ export function VisitMyPage(props: any) {
                 >
                   <div className={"order_user_img"}>
                     <img
-                      src={"/auth/default_user.svg"}
+                      src={verifiedMemberData?.mb_image}
                       className={"order_user_avatar"}
                     />
                     <div className={"order_user_icon_box"}>

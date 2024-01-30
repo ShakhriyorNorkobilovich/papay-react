@@ -61,7 +61,7 @@ export function MemberFollowing(props: any) {
   const unsubscribeHandler = async (e: any, id: string) => {
     try {
       e.stopPropagation();
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberData, Definer.auth_err1);
 
       const followService = new FollowApiService();
       await followService.unsubscribe(id);

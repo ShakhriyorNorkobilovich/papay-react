@@ -24,7 +24,7 @@ export function TargetArticles(props: any) {
   /*HANDLERS*/
   const targetLikeHandler = async (e: any) => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberData, Definer.auth_err1);
       const memberService = new MemberApiService();
       const like_result = await memberService.memberLikeTarget({
         like_ref_id: e.target.id,
