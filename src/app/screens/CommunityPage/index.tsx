@@ -147,16 +147,17 @@ export function CommunityPage(props: any) {
                       </TabPanel>
                     </Box>
     
-                    <Box className={"article_bott"}>
+                    <Box className="article_bott">
                       <Pagination
-                        count = {3}
-                        page={1}
+                        count={
+                          searchArticlesObj.page >= 3
+                            ? searchArticlesObj.page + 1
+                            : 3
+                        }
+                        page={searchArticlesObj.page}
                         renderItem={(item) => (
                           <PaginationItem
-                            components={{
-                              previous: ArrowBackIcon,
-                              next: ArrowForwardIcon,
-                            }}
+                            components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
                             {...item}
                             color={"secondary"}
                           />

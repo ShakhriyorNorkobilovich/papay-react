@@ -38,12 +38,12 @@ export default function AuthenticationModal(props: any) {
     /** INITIALIZATIONS */
 
   const classes = useStyles();
-  let mb_nick: string = "",
-  mb_phone: number = 0,
-  mb_password: string = "";
-//   const [mb_nick, set_mb_nick] = useState<string>("");
-//   const [mb_phone, set_mb_phone] = useState<number>(0);
-//   const [mb_password, set_mb_password] = useState<string>("");
+  // let mb_nick: string = "",
+  // mb_phone: number = 0,
+  // mb_password: string = "";
+  const [mb_nick, set_mb_nick] = useState<string>("");
+  const [mb_phone, set_mb_phone] = useState<number>(0);
+  const [mb_password, set_mb_password] = useState<string>("");
 
 
 
@@ -51,13 +51,13 @@ export default function AuthenticationModal(props: any) {
 
 
   const handleUsername = (e: any) => {
-    mb_nick = e.target.value;
+    set_mb_nick (e.target.value);
   };
   const handlePhone = (e: any) => {
-    mb_phone = e.target.value;;
+    set_mb_phone (e.target.value);
   };
   const handlePassword = (e: any) => {
-    mb_password = e.target.value;;
+    set_mb_password (e.target.value);
   };
 
   const handleSignupRequest = async () => {
@@ -104,14 +104,14 @@ export default function AuthenticationModal(props: any) {
     }
   };
 
-//   const passwordKeyPressHandler = (e: any) => {
-//     if (e.key == "Enter" && props.signUpOpen) {
-//       console.log();
-//       handleSignupRequest().then();
-//     } else if (e.key == "Enter" && props.loginOpen) {
-//       handleLoginRequest().then();
-//     }
-//   };
+  const passwordKeyPressHandler = (e: any) => {
+    if (e.key == "Enter" && props.signUpOpen) {
+      console.log();
+      handleSignupRequest().then();
+    } else if (e.key == "Enter" && props.loginOpen) {
+      handleLoginRequest().then();
+    }
+  };
 
 
  
@@ -156,6 +156,7 @@ export default function AuthenticationModal(props: any) {
               />
               <TextField
                 onChange={handlePassword}
+                onKeyPress={passwordKeyPressHandler}
                 id="outlined-basic"
                 label="password"
                 variant="outlined"
@@ -211,6 +212,7 @@ export default function AuthenticationModal(props: any) {
               />
               <TextField
                 onChange={handlePassword}
+                onKeyPress={passwordKeyPressHandler}
                 id="outlined-basic"
                 label="password"
                 variant="outlined"
